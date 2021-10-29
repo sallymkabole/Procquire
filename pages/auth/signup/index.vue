@@ -173,10 +173,10 @@ export default {
       console.log(this.country);
     },
     registerUser() {
-      console.log(this.marker.position)
+      console.log(this.radios)
       axios
         .post("https://dmserver.herokuapp.com/signup", {
-              
+              role: this.radios,
               user: this.userInfo,
             },{
           headers: {
