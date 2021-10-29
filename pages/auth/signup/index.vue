@@ -68,6 +68,21 @@
           :phonerules="[rules.required, rules.min]"
          
         ></v-text-field>
+         <p>{{ radios}}</p>
+    <v-radio-group
+      v-model="radios"
+      mandatory
+      row
+    >
+      <v-radio
+        label="SME"
+        value="sme"
+      ></v-radio>
+      <v-radio
+        label="Supplier"
+        value="supp"
+      ></v-radio>
+    </v-radio-group>
         <v-btn
           class="btn1"
           block
@@ -92,7 +107,7 @@ export default {
   },
   data() {
     return {
-      marker: { position: { lat: "", lng: "" } },
+      radios: null,
       address: "",
      
       errors: [],
