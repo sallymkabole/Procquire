@@ -122,10 +122,10 @@ export default {
 
       const AITRABLE_BASE_ID = "appnJAjIlkXhoYRVs";
       const AIRTABLE_BASE_NAME = "users";
-
+      //
       request(
         {
-          url: `https://api.airtable.com/v0/${AITRABLE_BASE_ID}/${AIRTABLE_BASE_NAME}?fields=Email&fields=password&filterByFormula=SEARCH("${userEmail}",+Email)`,
+          url: `https://api.airtable.com/v0/${AITRABLE_BASE_ID}/${AIRTABLE_BASE_NAME}?fields=Email&fields=password&fields=role&filterByFormula=SEARCH("${userEmail}",+Email)`,
           headers: {
             Authorization: "Bearer keyqUz7Z3x5vUjDzW"
           }
@@ -142,6 +142,8 @@ export default {
             jsonBody["records"][0]["fields"]["password"] === userPassword
           ) {
             // if a user was returned, authenticate
+            let userRole = jsonBody["records"][0]["fields"]["role"];
+            console.log(userRole);
             alert("Authenticated!");
             //TODO authenticate and route to dashboard
           } else {
