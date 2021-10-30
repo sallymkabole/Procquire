@@ -3,7 +3,7 @@
     <v-layout class="right-nav">
       <v-card class="login">
         <v-layout class="auth-card" justify-center align-center>
-          <h3 class=" black--text font-weight-bold ">
+          <h3 class="black--text font-weight-bold">
             Login to <a href="/">Procquire</a>
           </h3>
           <v-form v-model="valid">
@@ -61,6 +61,7 @@
 </template>
 <script>
 const request = require("request");
+import axios from "axios";
 export default {
   name: "login",
   layout: "default",
@@ -74,41 +75,42 @@ export default {
       userInfo: {
         email: "",
 
-        password: ""
+        password: "",
       },
       country: null,
       form: {
         min: 18,
-        max: 100
+        max: 100,
       },
       number: 0,
       emailrules: {
-        required: value => !!value || "Required.",
-        counter: value => value.length <= 20 || "Max 20 characters",
-        email: value => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        required: (value) => !!value || "Required.",
+        counter: (value) => value.length <= 20 || "Max 20 characters",
+        email: (value) => {
+          const pattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Invalid e-mail.";
-        }
+        },
       },
       show1: false,
 
       passrules: {
-        required: value => !!value || "Required.",
-        min: v => v.length >= 8 || "Min 8 characters"
+        required: (value) => !!value || "Required.",
+        min: (v) => v.length >= 8 || "Min 8 characters",
       },
       password: "Password",
       rules: {
-        required: value => !!value || "Required.",
-        min: v => v.length >= 8 || "Min 8 characters",
+        required: (value) => !!value || "Required.",
+        min: (v) => v.length >= 8 || "Min 8 characters",
         emailMatch: () => `The email and password you entered don't match`,
-        min: v => v >= this.form.min || `The Min is ${this.form.min}`,
-        max: v => v <= this.form.max || `The Max is ${this.form.max}`
-      }
+        min: (v) => v >= this.form.min || `The Min is ${this.form.min}`,
+        max: (v) => v <= this.form.max || `The Max is ${this.form.max}`,
+      },
     };
   },
   mounted() {},
   methods: {
-    checkForm: function(e) {
+    checkForm: function (e) {
       if (this.fullname && this.email) return true;
       this.errors = [];
       if (!this.fullname) this.errors.push("Fullname required.");
@@ -122,14 +124,29 @@ export default {
 
       const AITRABLE_BASE_ID = "appnJAjIlkXhoYRVs";
       const AIRTABLE_BASE_NAME = "users";
+      let status = 0;
       //
-      request(
-        {
-          url: `https://api.airtable.com/v0/${AITRABLE_BASE_ID}/${AIRTABLE_BASE_NAME}?fields=Email&fields=password&fields=role&filterByFormula=SEARCH("${userEmail}",+Email)`,
-          headers: {
-            Authorization: "Bearer keyqUz7Z3x5vUjDzW"
-          }
-        },
+ 
+      axios.get(`https://api.airtable.com/v0/${AITRABLE_BASE_ID}/${AIRTABLE_BASE_NAME}?fields=Email&fields=password&fields=role&filterByFormula=SEARCH("${userEmail}",+Email)`,
+            {headers: {
+            Authorization: "Bearer keyqUz7Z3x5vUjDzW",
+          }})
+        .then((res) => {
+            // load the API response into items for datatable
+            this.records = res.data.records;
+            if(this.records[0]["fields"]["role"]==='sup'){
+              this.$router.push("/supplier");
+            }
+            else{
+              this.$router.push("/sme");
+            }
+            
+        }).catch((error) => {
+            console.log(error)
+        })
+       
+
+      /*  
         function(err, res, body) {
           if (err) {
             return console.error(err);
@@ -139,22 +156,29 @@ export default {
           //check if any user was returned
           if (
             jsonBody["records"].length > 0 &&
-            jsonBody["records"][0]["fields"]["password"] === userPassword
+            jsonBody["records"][0]["fields"]["password"] === userPassword&&
+            jsonBody["records"][0]["fields"]["role"] === 'sup'
           ) {
             // if a user was returned, authenticate
             let userRole = jsonBody["records"][0]["fields"]["role"];
             console.log(userRole);
-            alert("Authenticated!");
+            this.status=1
+             console.log(this.status);
+             
+            
             //TODO authenticate and route to dashboard
           } else {
-            alert("Invalid credentials!");
+            this.status=0
+            console.log(this.status);
+            
             // if no user was returned, throw error
-            // ask for valid login credentials
-          }
+            // a
         }
-      );
-    }
-  }
+        }*/
+  
+     
+    },
+  },
 };
 </script>
 <style scoped>
