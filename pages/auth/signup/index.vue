@@ -186,6 +186,7 @@ export default {
           });
         }
       );
+      alert("user created!");
       this.$router.push("/auth/login");
     },
   },
