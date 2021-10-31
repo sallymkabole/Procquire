@@ -126,57 +126,37 @@ export default {
       const AIRTABLE_BASE_NAME = "users";
       let status = 0;
       //
- 
-      axios.get(`https://api.airtable.com/v0/${AITRABLE_BASE_ID}/${AIRTABLE_BASE_NAME}?fields=Email&fields=password&fields=role&filterByFormula=SEARCH("${userEmail}",+Email)`,
-            {headers: {
-            Authorization: "Bearer keyqUz7Z3x5vUjDzW",
-          }})
+
+      axios
+        .get(
+          `https://api.airtable.com/v0/${AITRABLE_BASE_ID}/${AIRTABLE_BASE_NAME}?fields=Email&fields=password&fields=role&filterByFormula=SEARCH("${userEmail}",+Email)`,
+          {
+            headers: {
+              Authorization: "Bearer keyqUz7Z3x5vUjDzW",
+            },
+          }
+        )
         .then((res) => {
-            // load the API response into items for datatable
-            this.records = res.data.records;
-            if(this.records[0]["fields"]["role"]==='sup'){
+          // load the API response into items for datatable
+          this.records = res.data.records;
+          // check if any records were returned
+          if (
+            this.records.length > 0 &&
+            this.records[0]["fields"]["password"] === userPassword
+          ) {
+            alert("Authenticated!");
+            if (this.records[0]["fields"]["role"] === "sup") {
               this.$router.push("/supplier");
-            }
-            else{
+            } else {
               this.$router.push("/sme");
             }
-            
-        }).catch((error) => {
-            console.log(error)
-        })
-       
-
-      /*  
-        function(err, res, body) {
-          if (err) {
-            return console.error(err);
-          }
-
-          let jsonBody = JSON.parse(body);
-          //check if any user was returned
-          if (
-            jsonBody["records"].length > 0 &&
-            jsonBody["records"][0]["fields"]["password"] === userPassword&&
-            jsonBody["records"][0]["fields"]["role"] === 'sup'
-          ) {
-            // if a user was returned, authenticate
-            let userRole = jsonBody["records"][0]["fields"]["role"];
-            console.log(userRole);
-            this.status=1
-             console.log(this.status);
-             
-            
-            //TODO authenticate and route to dashboard
           } else {
-            this.status=0
-            console.log(this.status);
-            
-            // if no user was returned, throw error
-            // a
-        }
-        }*/
-  
-     
+            alert("Invalid Credentials!");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
