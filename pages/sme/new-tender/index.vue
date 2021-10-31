@@ -65,28 +65,12 @@
       </v-navigation-drawer>
 
       <v-main>
-        <v-container class="px-4 py-2 fill-height body-txt" fluid>
+        <v-container style="height:100vh" class="px-4 py-2 fill-height body-txt" fluid>
           <v-layout row>
-            <v-app-bar app flat color="#fff">
-              <v-text-field
-                prepend-inner-icon="mdi-magnify"
-                flat
-                full-width
-                hide-details
-                label="Search..."
-                solo
-                class="hr"
-              >
-                <template slot="append">
-                  <v-icon color="#A3ACB9">mdi-bell</v-icon>
-                  <v-icon color="#A3ACB9">mdi-help-circle</v-icon>
-                  <v-icon color="#A3ACB9">mdi-account</v-icon>
-                </template>
-              </v-text-field>
-            </v-app-bar>
+          
 
             <v-col md="12" xs="12" sm="12">
-              <Tab />
+              <AddTenderTemplate/>
             </v-col>
           </v-layout>
         </v-container>
@@ -95,12 +79,12 @@
   </div>
 </template>
 <script>
-import Tab from "@/components/Tab";
+import AddTenderTemplate from "@/components/AddTenderTemplate";
 export default {
     layout:'default',
-  name: "dashboard",
+  name: "new-tender",
   components: {
-    Tab,
+    AddTenderTemplate,
   },
   data() {
     return {
@@ -120,10 +104,10 @@ export default {
         },
       ],
       plist: [
-        { title: "Biding Queue", href: "/sme/bidding-queue", icon: "mdi-swap-vertical" },
+        { title: "Biding Queue", href: "/biding-queue", icon: "mdi-swap-vertical" },
         {
           title: "Suppliers",
-          href: "/sme/supplier-list",
+          href: "/supplier-list",
           icon: "mdi-check-decagram",
         },
        
@@ -245,3 +229,4 @@ a:hover {
     color: #1A1F36 !important;
 }
 </style>
+</template>
