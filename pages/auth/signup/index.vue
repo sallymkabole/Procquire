@@ -3,7 +3,7 @@
     <v-layout class="right-nav">
       <v-card class="signup">
         <v-layout class="auth-card" justify-center align-center>
-          <h3 class=" black--text font-weight-bold ">
+          <h3 class="black--text font-weight-bold">
             Signup to <a href="/">Procquire</a>
           </h3>
           <v-form v-model="valid">
@@ -105,44 +105,45 @@ export default {
         lname: "",
         email: "",
         phone: null,
-        password: ""
+        password: "",
       },
       country: null,
       form: {
         min: 18,
-        max: 100
+        max: 100,
       },
       number: 0,
       emailrules: {
-        required: value => !!value || "Required.",
-        counter: value => value.length <= 20 || "Max 20 characters",
-        email: value => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        required: (value) => !!value || "Required.",
+        counter: (value) => value.length <= 20 || "Max 20 characters",
+        email: (value) => {
+          const pattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Invalid e-mail.";
-        }
+        },
       },
       show1: false,
       phonerules: {
-        required: value => !!value || "Required.",
-        min: v => v.length >= 10 || "Min 10 characters"
+        required: (value) => !!value || "Required.",
+        min: (v) => v.length >= 10 || "Min 10 characters",
       },
       passrules: {
-        required: value => !!value || "Required.",
-        min: v => v.length >= 8 || "Min 8 characters"
+        required: (value) => !!value || "Required.",
+        min: (v) => v.length >= 8 || "Min 8 characters",
       },
       password: "Password",
       rules: {
-        required: value => !!value || "Required.",
-        min: v => v.length >= 8 || "Min 8 characters",
+        required: (value) => !!value || "Required.",
+        min: (v) => v.length >= 8 || "Min 8 characters",
         emailMatch: () => `The email and password you entered don't match`,
-        min: v => v >= this.form.min || `The Min is ${this.form.min}`,
-        max: v => v <= this.form.max || `The Max is ${this.form.max}`
-      }
+        min: (v) => v >= this.form.min || `The Min is ${this.form.min}`,
+        max: (v) => v <= this.form.max || `The Max is ${this.form.max}`,
+      },
     };
   },
   mounted() {},
   methods: {
-    checkForm: function(e) {
+    checkForm: function (e) {
       if (this.fullname && this.email) return true;
       this.errors = [];
       if (!this.fullname) this.errors.push("Fullname required.");
@@ -170,23 +171,24 @@ export default {
               role: this.radios,
               lastname: this.userInfo.lname,
               Email: this.userInfo.email,
-              phone: this.userInfo.number
+              phone: this.userInfo.number,
               // TODO: figure out why the phone number doesnt show up in airtable
-            }
-          }
+            },
+          },
         ],
-        function(err, records) {
+        function (err, records) {
           if (err) {
             console.error(err);
             return;
           }
-          records.forEach(function(record) {
+          records.forEach(function (record) {
             console.log(record.getId());
           });
         }
       );
-    }
-  }
+      this.$router.push("/auth/login");
+    },
+  },
 };
 </script>
 <style scoped>
