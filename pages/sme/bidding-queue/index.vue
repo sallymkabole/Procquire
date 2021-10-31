@@ -19,7 +19,7 @@
         </v-list-item>
 
         <v-list>
-          <v-list-item>
+          <v-list-item  link to="/sme">
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
             </v-list-item-icon>
@@ -27,6 +27,19 @@
             <v-list-item-title class="">Dashboard</v-list-item-title>
           </v-list-item>
 
+          
+          <v-list >
+            <v-list-item v-for="i in plist" :key="i.title" link :to="i.href">
+              <v-list-item-icon>
+                <v-icon class="grey-text">{{ i.icon }}</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="grey-text">{{
+                  i.title
+                }}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
           <v-list>
             <v-list-group
               v-for="item in items"
@@ -48,18 +61,6 @@
                 </v-list-item-content>
               </v-list-item>
             </v-list-group>
-          </v-list>
-          <v-list >
-            <v-list-item v-for="i in plist" :key="i.title" link :to="i.href">
-              <v-list-item-icon>
-                <v-icon class="grey-text">{{ i.icon }}</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title class="grey-text">{{
-                  i.title
-                }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
           </v-list>
         </v-list>
       </v-navigation-drawer>
@@ -120,6 +121,7 @@ export default {
         },
       ],
       plist: [
+        {title:"Catalogue", href:"/sme/catalogue", icon:"mdi-view-grid"},
         { title: "Biding Queue", href: "/sme/biding-queue", icon: "mdi-swap-vertical" },
         {
           title: "Suppliers",
