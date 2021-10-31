@@ -1,101 +1,90 @@
 <template>
-  <v-layout column justify-center align-center class="main-layout" >
-      <v-layout class="right-nav">
-    <v-card class="signup">
-        <v-layout  class="auth-card"  justify-center align-center >
-      <h3 class=" black--text font-weight-bold ">
-        Signup to <a  href="/">Procquire</a>
-      </h3>
-      <v-form v-model="valid">
-        <v-row>
-          <v-col md="6" xs="12" sm="12">
-            <h3 class="text-left">First Name</h3>
+  <v-layout column justify-center align-center class="main-layout">
+    <v-layout class="right-nav">
+      <v-card class="signup">
+        <v-layout class="auth-card" justify-center align-center>
+          <h3 class="black--text font-weight-bold">
+            Signup to <a href="/">Procquire</a>
+          </h3>
+          <v-form v-model="valid">
+            <v-row>
+              <v-col md="6" xs="12" sm="12">
+                <h3 class="text-left">First Name</h3>
+                <v-text-field
+                  dense
+                  v-model="userInfo.fname"
+                  outlined
+                  color="#45a622"
+                  placeholder="Firstname"
+                ></v-text-field>
+              </v-col>
+              <v-col md="6" xs="12" sm="12">
+                <h3 class="text-left">Last Name</h3>
+
+                <v-text-field
+                  dense
+                  v-model="userInfo.lname"
+                  outlined
+                  color="#45a622"
+                  placeholder="Lastname"
+                />
+              </v-col>
+            </v-row>
+
+            <h3 class="text-left">Email</h3>
             <v-text-field
-            dense
-              v-model="userInfo.fname"
-              outlined
+              dense
+              v-model="userInfo.email"
+              :rules="[emailrules.required, emailrules.email]"
+              class=""
               color="#45a622"
-              placeholder="Firstname"
+              outlined
+              placeholder="Email"
             ></v-text-field>
-          </v-col>
-          <v-col md="6" xs="12" sm="12">
-            <h3 class="text-left">Last Name</h3>
-
+            <h3 class="text-left">Password</h3>
             <v-text-field
-            dense
-              v-model="userInfo.lname"
-              outlined
+              dense
+              v-model="userInfo.password"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              :passrules="[rules.required, rules.min]"
+              :type="show1 ? 'text' : 'password'"
+              name="input-10-1"
+              hint="At least 8 characters"
+              counter
+              @click:append="show1 = !show1"
               color="#45a622"
-              placeholder="Lastname"
-            />
-          </v-col>
-        </v-row>
-
-        <h3 class="text-left">Email</h3>
-        <v-text-field
-        dense
-          v-model="userInfo.email"
-          :rules="[emailrules.required, emailrules.email]"
-          class=""
-          color="#45a622"
-          outlined
-          placeholder="Email"
-        ></v-text-field>
-        <h3 class="text-left">Password</h3>
-        <v-text-field
-        dense
-          v-model="userInfo.password"
-          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-          :passrules="[rules.required, rules.min]"
-          :type="show1 ? 'text' : 'password'"
-          name="input-10-1"
-          hint="At least 8 characters"
-          counter
-          @click:append="show1 = !show1"
-          color="#45a622"
-          outlined
-          placeholder="Password"
-        ></v-text-field>
-        <h3 class="text-left">Phone</h3>
-        <v-text-field
-        dense
-          v-model="userInfo.phone"
-          class=""
-          color="#45a622"
-          outlined
-          placeholder="07XXXXXXXX"
-          type="tel"
-          :phonerules="[rules.required, rules.min]"
-         
-        ></v-text-field>
-         <p>{{ radios}}</p>
-    <v-radio-group
-      v-model="radios"
-      mandatory
-      row
-    >
-      <v-radio
-        label="SME"
-        value="sme"
-      ></v-radio>
-      <v-radio
-        label="Supplier"
-        value="supp"
-      ></v-radio>
-    </v-radio-group>
-        <v-btn
-          class="btn1"
-          block
-          color="#45A622"
-          @click="registerUser"
-          :disabled="!valid"
-        >
-          SIGN UP</v-btn
-        >
-      </v-form>
+              outlined
+              placeholder="Password"
+            ></v-text-field>
+            <h3 class="text-left">Phone</h3>
+            <v-text-field
+              dense
+              v-model="userInfo.phone"
+              class=""
+              color="#45a622"
+              outlined
+              placeholder="07XXXXXXXX"
+              type="tel"
+              :phonerules="[rules.required, rules.min]"
+            ></v-text-field>
+            <p>{{ radios }}</p>
+            <v-radio-group v-model="radios" mandatory row>
+              <v-radio label="SME" value="sme"></v-radio>
+              <v-radio label="Supplier" value="sup"></v-radio>
+            </v-radio-group>
+            <v-btn
+              class="btn1"
+              block
+              color="#45A622"
+              @click="signUpNewUser"
+              :disabled="!valid"
+            >
+              SIGN UP</v-btn
+            >
+          </v-form>
         </v-layout>
-    </v-card>
-      </v-layout>
+      </v-card>
+    </v-layout>
   </v-layout>
 </template>
 <script>
@@ -103,13 +92,12 @@ import axios from "axios";
 export default {
   name: "signup",
   layout: "default",
-  components: {
-  },
+  components: {},
   data() {
     return {
       radios: null,
       address: "",
-     
+
       errors: [],
       valid: false,
       userInfo: {
@@ -118,7 +106,6 @@ export default {
         email: "",
         phone: null,
         password: "",
-        age: "",
       },
       country: null,
       form: {
@@ -154,11 +141,8 @@ export default {
       },
     };
   },
-  mounted() {
-  
-  },
+  mounted() {},
   methods: {
-    
     checkForm: function (e) {
       if (this.fullname && this.email) return true;
       this.errors = [];
@@ -172,37 +156,44 @@ export default {
       console.log(this.userInfo.phone);
       console.log(this.country);
     },
-    registerUser() {
-      console.log(this.radios)
-      axios
-        .post("https://dmserver.herokuapp.com/signup", {
+    signUpNewUser() {
+      var Airtable = require("airtable");
+      var base = new Airtable({ apiKey: "keyqUz7Z3x5vUjDzW" }).base(
+        "appnJAjIlkXhoYRVs"
+      );
+
+      base("users").create(
+        [
+          {
+            fields: {
+              firstname: this.userInfo.fname,
+              password: this.userInfo.password,
               role: this.radios,
-              user: this.userInfo,
-            },{
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods":
-            "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers":
-            "Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length",
+              lastname: this.userInfo.lname,
+              Email: this.userInfo.email,
+              phone: this.userInfo.number,
+              // TODO: figure out why the phone number doesnt show up in airtable
+            },
           },
-        })
-        .then(
-          (response) => {
-            console.log(response);
-            this.$router.push("/");
-          },
-          (error) => {
-            console.log(error);
+        ],
+        function (err, records) {
+          if (err) {
+            console.error(err);
+            return;
           }
-        );
+          records.forEach(function (record) {
+            console.log(record.getId());
+          });
+        }
+      );
+      alert("user created!");
+      this.$router.push("/auth/login");
     },
   },
 };
 </script>
 <style scoped>
-.main-layout{
+.main-layout {
   height: 100vh;
   width: 100vw;
 }
@@ -210,10 +201,9 @@ export default {
   width: 100%;
   height: 100%;
   display: flex;
-flex-direction: column;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  
 }
 .auth-card {
   display: flex;
@@ -256,15 +246,13 @@ a:hover {
   border-radius: 4px solid #ec6382;
 }
 .signup {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
   background: #fff;
   border: 1px solid rgb(228, 214, 214);
   padding: 30px;
   max-width: 500px;
-  
 }
-
 
 .text-white input {
   color: white !important;
