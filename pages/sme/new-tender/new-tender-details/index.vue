@@ -92,7 +92,7 @@
                       <h4>Tender Ref</h4>
                       <h4>Tender Open Date</h4>
                       <h4>Tender Close Date</h4>
-                      <h4>Tender Quantity</h4></v-layout
+                      <h4>Tender Quantity:</h4></v-layout
                     >
                   </v-col></v-layout
                 >
