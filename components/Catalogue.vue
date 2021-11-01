@@ -1,25 +1,14 @@
 <template>
   <v-layout column class="max-width">
-      <v-layout column>
-        <h1>Tenders</h1>
-    <v-toolbar style="background:transparent" flat>
-      
-      <v-toolbar-title class="body--txt font-weight-bold left-text my-auto text-sm-xs"
-        >Catalogue</v-toolbar-title
-      >
-      <v-spacer></v-spacer>
-
-      <v-btn small class="white--text font-weight-bold" color="#45A622"
-        ><v-icon>mdi-plus</v-icon> New</v-btn
-      >
-    </v-toolbar></v-layout>
-    <v-layout row justify-center align-center wrap>
+       <h1>Tenders for Bid</h1>
+    <v-layout style="height:60px" row justify-center align-center wrap>
       <!--  Create Cards Based on Objects in an Array -->
       <v-flex xs12 md3 lg3 sm12 pa-2 v-for="card in cards" :key="card.title">
         <v-card
         flat
-          :to="`${card.to}`"
+          to="/sme/new-tender/new-tender-details"
           width="95%"
+          height="100%"
           class="d-flex flex-column view-card"
         >
           <div
@@ -45,13 +34,14 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-layout row justify-center align-center wrap>
+    <v-layout row style="height:70px" justify-center align-center wrap>
       <!--  Create Cards Based on Objects in an Array -->
       <v-flex xs12 md3 lg3 sm12 pa-2 v-for="card in cards" :key="card.title">
         <v-card
         flat
           :to="`${card.to}`"
           width="95%"
+          height="100%"
           class="d-flex flex-column view-card"
         >
           <div
@@ -137,7 +127,7 @@ export default {
   margin: 0 auto;
 }
 .view-card {
-  height: 16rem;
+  height: 14rem;
   border: 3px solid#13a621;
 
 

@@ -4,7 +4,7 @@
       <v-card-title class="font-weight-bold">Open Bids</v-card-title>
       <v-layout class="ma-2">
         <v-flex xs4 md4 lg4 sm4>
-          <v-card elevation="6" width="90%" class="stat">
+          <v-card to="/supplier/catalogue/itemdetails/submitbid" elevation="6" width="90%" class="stat">
             <v-card-text class="my-auto d-flex flex-column">
               <div class="d-flex justify-space-between mb-8">
                 <h5 class="mb-0 text-left black--text">02/11/2021</h5>

@@ -216,7 +216,7 @@
       
     ></v-checkbox>
                       </div>
-                      <div><v-btn class="white--text font-weight-bold" color="green">Submit</v-btn></div>
+                      <div><v-btn to="/supplier" class="white--text font-weight-bold" color="green">Submit</v-btn></div>
                     </v-card-text>
                   </v-card>
                 </v-flex></v-layout>

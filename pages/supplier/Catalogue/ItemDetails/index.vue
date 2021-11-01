@@ -152,7 +152,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-//import NewTenderDetailsTemplate from "@/components/NewTenderDetailsTemplate";
+import NewTenderDetailsTemplate from "@/components/NewTenderDetailsTemplate";
 export default {
   layout: "default",
   name: "item-details",

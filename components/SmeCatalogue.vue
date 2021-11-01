@@ -9,8 +9,8 @@
       >
       <v-spacer></v-spacer>
 
-      <v-btn small class="white--text font-weight-bold" color="#45A622"
-        ><v-icon>mdi-plus</v-icon> New</v-btn
+      <v-btn to="/sme/new-tender" small class="white--text font-weight-bold" color="#45A622"
+        ><v-icon>mdi-plus</v-icon> Create New</v-btn
       >
     </v-toolbar></v-layout>
     <v-layout row justify-center align-center wrap>

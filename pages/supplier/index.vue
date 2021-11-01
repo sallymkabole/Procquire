@@ -118,7 +118,7 @@ export default {
         },
        
         { title: "Contract", href: "/supplier/contract", icon: "mdi-file-document-edit" },
-        { title: "Reports", href: "/reports", icon: "mdi-chart-line" },
+        { title: "Analytcs", href: "/supplier/analytics", icon: "mdi-chart-line" },
        
         { title: "Settings", href: "/settings", icon: "mdi-cog-outline" },
       ], items: [
