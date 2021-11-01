@@ -24,10 +24,10 @@
               <v-icon>mdi-home</v-icon>
             </v-list-item-icon>
 
-            <v-list-item-title  class="">Dashboard</v-list-item-title>
+            <v-list-item-title class="">Dashboard</v-list-item-title>
           </v-list-item>
 
-        
+       
           <v-list >
             <v-list-item v-for="i in plist" :key="i.title" link :to="i.href">
               <v-list-item-icon>
@@ -40,7 +40,7 @@
               </v-list-item-content>
             </v-list-item>
           </v-list>
-            <v-list>
+             <v-list>
             <v-list-group
               v-for="item in items"
               :key="item.title"
@@ -63,32 +63,27 @@
             </v-list-group>
           </v-list>
         </v-list>
-        
       </v-navigation-drawer>
 
       <v-main>
         <v-container class="px-4 py-2 fill-height body-txt" fluid>
           <v-layout row>
-            <v-app-bar app flat color="#fff">
-              <v-text-field
-                prepend-inner-icon="mdi-magnify"
-                flat
-                full-width
-                hide-details
-                label="Search..."
-                solo
-                class="hr"
-              >
-                <template slot="append">
+            <v-app-bar app flat outlined>
+                 <h2
+            class="font-weight-bold ml-2"
+            style="width: 80%; margin: 0 auto"
+            >Niya Nat Statistics</h2
+          >
+              <v-spacer/>
+                
                   <v-icon color="#A3ACB9">mdi-bell</v-icon>
                   <v-icon color="#A3ACB9">mdi-help-circle</v-icon>
                   <v-icon color="#A3ACB9">mdi-account</v-icon>
-                </template>
-              </v-text-field>
+               
             </v-app-bar>
 
             <v-col md="12" xs="12" sm="12">
-              <Tab />
+              <Niya />
             </v-col>
           </v-layout>
         </v-container>
@@ -97,31 +92,16 @@
   </div>
 </template>
 <script>
-import Tab from "@/components/Tab";
+import Niya from "@/components/Niya";
 export default {
     layout:'default',
-  name: "dashboard",
+  name: "bidding-queue",
   components: {
-    Tab,
+    Niya,
   },
   data() {
     return {
-     
-      plist: [
-        {title:"Catalogue", href:"/sme/catalogue", icon:"mdi-view-grid"},
-        { title: "Biding Queue", href: "/sme/bidding-queue", icon: "mdi-swap-vertical" },
-        
-        {
-          title: "Suppliers",
-          href: "/sme/supplier-list",
-          icon: "mdi-check-decagram",
-        },
-       
-        { title: "Contract", href: "/sme/contract", icon: "mdi-file-document-edit" },
-        { title: "Reports", href: "/reports", icon: "mdi-chart-line" },
-       
-        { title: "Settings", href: "/settings", icon: "mdi-cog-outline" },
-      ], items: [
+      items: [
         {
           action: "mdi-cash-multiple",
           items: [
@@ -136,57 +116,25 @@ export default {
           title: "Payments",
         },
       ],
+      plist: [
+        {title:"Catalogue", href:"/sme/catalogue", icon:"mdi-view-grid"},
+        { title: "Biding Queue", href: "/sme/bidding-queue", icon: "mdi-swap-vertical" },
+        {
+          title: "Suppliers",
+          href: "/sme/supplier-list",
+          icon: "mdi-check-decagram",
+        },
+       
+        { title: "Contract", href: "/sme/contract", icon: "mdi-file-document-edit" },
+        { title: "Reports", href: "/reports", icon: "mdi-chart-line" },
+       
+        { title: "Settings", href: "/settings", icon: "mdi-cog-outline" },
+      ],
     };
   },
 };
 </script>
 <style scoped>
-html {
-  overflow-y: scroll;
-}
-
-h1 {
-  position: static;
-  width: 361px;
-  height: 46px;
-  left: 68px;
-  top: 48px;
-  font-family: SF Pro Display;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 29px;
-
-  /* Grey 800 */
-
-  color: #3c4257;
-}
-h2 {
-  position: static;
-  height: 17px;
-  left: 0px;
-  top: 0px;
-
-  font-family: SF Pro Text;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  /* identical to box height */
-
-  display: flex;
-  align-items: center;
-
-  /* Grey 800 */
-
-  color: #3c4257;
-
-  /* Inside Auto Layout */
-}
-.purple-text {
-  color: #635cff;
-}
-
 .left-text {
   display: inline-block;
 }
@@ -201,9 +149,6 @@ a {
 }
 a:hover {
   color: #dfd3d3;
-}
-.pur {
-  color: #635cff;
 }
 .top-btn {
   color: #3c4257 !important;
@@ -235,17 +180,9 @@ a:hover {
   text-transform: capitalize;
 }
 
-.v-text-field {
-  width: 406px !important;
-}
-.v-text-field:hover {
-  color: #b0d8f0 !important;
-}
 .hr {
   border-bottom: 1px solid #e3e8ee;
   width: 100%;
 }
-.grey-text{
-    color: #1A1F36 !important;
-}
+
 </style>

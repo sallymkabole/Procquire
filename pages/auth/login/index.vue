@@ -1,84 +1,81 @@
 <template>
-  <v-layout column justify-center align-center class="main-layout" >
-      <v-layout class="right-nav">
-    <v-card class="login">
-        <v-layout  class="auth-card"  justify-center align-center >
-      <h3 class=" black--text font-weight-bold ">
-        Login to <a  href="/">Procquire</a>
-      </h3>
-      <v-form v-model="valid">
-       
+  <v-layout column justify-center align-center class="main-layout">
+    <v-layout class="right-nav">
+      <v-card class="login">
+        <v-layout class="auth-card" justify-center align-center>
+          <h3 class="black--text font-weight-bold">
+            Login to <a href="/">Procquire</a>
+          </h3>
+          <v-form v-model="valid">
+            <h3 class="text-left">Email</h3>
+            <v-text-field
+              dense
+              v-model="userInfo.email"
+              :rules="[emailrules.required, emailrules.email]"
+              class=""
+              color="#45a622"
+              outlined
+              placeholder="Email"
+            ></v-text-field>
+            <h3 class="text-left">Password</h3>
+            <v-text-field
+              dense
+              v-model="userInfo.password"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              :passrules="[rules.required, rules.min]"
+              :type="show1 ? 'text' : 'password'"
+              name="input-10-1"
+              hint="At least 8 characters"
+              counter
+              @click:append="show1 = !show1"
+              color="#45a622"
+              outlined
+              placeholder="Password"
+            ></v-text-field>
+            <NuxtLink class="mb-12 float-right" to="/auth/signup">
+              Forgot Password
+            </NuxtLink>
 
-        <h3 class="text-left">Email</h3>
-        <v-text-field
-        dense
-          v-model="userInfo.email"
-          :rules="[emailrules.required, emailrules.email]"
-          class=""
-          color="#45a622"
-          outlined
-          placeholder="Email"
-        ></v-text-field>
-        <h3 class="text-left">Password</h3>
-        <v-text-field
-        dense
-          v-model="userInfo.password"
-          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-          :passrules="[rules.required, rules.min]"
-          :type="show1 ? 'text' : 'password'"
-          name="input-10-1"
-          hint="At least 8 characters"
-          counter
-          @click:append="show1 = !show1"
-          color="#45a622"
-          outlined
-          placeholder="Password"
-        ></v-text-field>
-       <NuxtLink class="mb-12 float-right" to="/auth/signup">
-      Forgot Password
-    </NuxtLink>
-    
-        <v-btn
-          class="btn1"
-          block
-          color="#45A622"
-          @click="registerUser"
-          :disabled="!valid"
-        >
-         LOG IN</v-btn
-        >
-        <h4 class="mt-2 float-right" to="/auth/signup">
-     Don’t have a Procquire account?<NuxtLink class="mb-2 float-right" to="/auth/signup">
-     Signup
-    </NuxtLink>
-    </h4>
-    
-      </v-form>
+            <v-btn
+              class="btn1"
+              block
+              color="#45A622"
+              @click="loginUser"
+              :disabled="!valid"
+            >
+              LOG IN</v-btn
+            >
+            <h4 class="mt-2 float-right" to="/auth/signup">
+              Don’t have a Procquire account?<NuxtLink
+                class="mb-2 float-right"
+                to="/auth/signup"
+              >
+                Signup
+              </NuxtLink>
+            </h4>
+          </v-form>
         </v-layout>
-    </v-card>
-      </v-layout>
+      </v-card>
+    </v-layout>
   </v-layout>
 </template>
 <script>
+const request = require("request");
 import axios from "axios";
 export default {
   name: "login",
   layout: "default",
-  components: {
-  },
+  components: {},
   data() {
     return {
       radios: null,
-    
-     
+
       errors: [],
       valid: false,
       userInfo: {
-        
         email: "",
-      
+
         password: "",
-      
       },
       country: null,
       form: {
@@ -96,7 +93,7 @@ export default {
         },
       },
       show1: false,
-      
+
       passrules: {
         required: (value) => !!value || "Required.",
         min: (v) => v.length >= 8 || "Min 8 characters",
@@ -111,11 +108,8 @@ export default {
       },
     };
   },
-  mounted() {
-  
-  },
+  mounted() {},
   methods: {
-    
     checkForm: function (e) {
       if (this.fullname && this.email) return true;
       this.errors = [];
@@ -124,38 +118,51 @@ export default {
       e.preventDefault();
     },
 
-   
-    registerUser() {
-      console.log(this.userInfo)
+    loginUser() {
+      const userEmail = this.userInfo.email;
+      const userPassword = this.userInfo.password;
+
+      const AITRABLE_BASE_ID = "appnJAjIlkXhoYRVs";
+      const AIRTABLE_BASE_NAME = "users";
+      let status = 0;
+      //
+
       axios
-        .post("https://dmserver.herokuapp.com/signup", {
-            
-              user: this.userInfo,
-            },{
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods":
-            "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers":
-            "Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length",
-          },
-        })
-        .then(
-          (response) => {
-            console.log(response);
-            this.$router.push("/");
-          },
-          (error) => {
-            console.log(error);
+        .get(
+          `https://api.airtable.com/v0/${AITRABLE_BASE_ID}/${AIRTABLE_BASE_NAME}?fields=Email&fields=password&fields=role&filterByFormula=SEARCH("${userEmail}",+Email)`,
+          {
+            headers: {
+              Authorization: "Bearer keyqUz7Z3x5vUjDzW",
+            },
           }
-        );
+        )
+        .then((res) => {
+          // load the API response into items for datatable
+          this.records = res.data.records;
+          // check if any records were returned
+          if (
+            this.records.length > 0 &&
+            this.records[0]["fields"]["password"] === userPassword
+          ) {
+            alert("Authenticated!");
+            if (this.records[0]["fields"]["role"] === "sup") {
+              this.$router.push("/supplier");
+            } else {
+              this.$router.push("/sme");
+            }
+          } else {
+            alert("Invalid Credentials!");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
 </script>
 <style scoped>
-.main-layout{
+.main-layout {
   height: 100vh;
   width: 100vw;
 }
@@ -163,10 +170,9 @@ export default {
   width: 100%;
   height: 100%;
   display: flex;
-flex-direction: column;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  
 }
 .auth-card {
   display: flex;
@@ -209,16 +215,14 @@ a:hover {
   border-radius: 4px solid #ec6382;
 }
 .login {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
   background: #fff;
   border: 1px solid rgb(228, 214, 214);
   padding: 30px;
   max-width: 500px;
   margin: 0 14px;
-  
 }
-
 
 .text-white input {
   color: white !important;

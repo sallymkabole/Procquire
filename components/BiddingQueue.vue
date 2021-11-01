@@ -1,10 +1,19 @@
 <template>
-  <v-card color="grey lighten-4 " flat>
-                <v-toolbar color="#fff" flat>
-                  
-                  <v-toolbar-title class="body--txt font-weight-bold left-text pa-2 ">Tenders</v-toolbar-title>
-                  <v-spacer></v-spacer>
-                  <v-btn class="top-btn mt-4" color="#fff"
+  <v-card class="d-flex flex-column" height="100%" width="100%" flat>
+      <v-layout column>
+                <v-card
+    flat
+    height="70px"
+    tile
+    class="mb-2"
+  >
+    <v-toolbar flat  dense>
+
+      <v-toolbar-title class="font-weight-bold">Bidding Queue</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+     <v-btn class="top-btn mt-4" color="#fff"
                     ><v-icon>mdi-filter</v-icon>Filter</v-btn
                   >
                   <v-btn class="top-btn ml-2 mt-4" color="#fff"
@@ -13,55 +22,21 @@
                   <v-btn to="/sme/new-tender" class="top-btn1 font-weight-bold ml-2 mt-4" color="#45A622"
                     ><v-icon>mdi-plus</v-icon>Create New</v-btn
                   >
-                  
-
-                  <template v-slot:extension>
-                    <v-tabs  color="#45A622" v-model="tabs" left>
-                      <v-tab class="black--text text-capitalize"> All </v-tab>
-                      <v-tab-item>
-                        <v-card flat>
-                         <DataTable/>
+    </v-toolbar>
+   
+  </v-card> <hr class="mb-2">
+                  <v-card width="100%" flat>
+                         <SupBidList/>
                         </v-card>
-                      </v-tab-item>
-
-                      <v-tab class="black--text text-capitalize">
-                        Open
-                      </v-tab>
-                      <v-tab-item>
-                        <v-card flat>
-                          <DataTable/>
-                        </v-card>
-                      </v-tab-item>
-                      <v-tab class="black--text text-capitalize">
-                        Pending
-                      </v-tab>
-                      <v-tab-item>
-                        <v-card flat>
-                          <DataTable/>
-                          
-                        </v-card>
-                      </v-tab-item>
-                      <v-tab class="black--text text-capitalize">
-                      Closed
-                      </v-tab>
-                      <v-tab-item>
-                        <v-card flat>
-                          <DataTable/>
-                        </v-card>
-                      </v-tab-item>
-                    </v-tabs>
-                  </template>
-                </v-toolbar>
+      </v-layout>
               </v-card>
 </template>
 <script>
-import DataTable from "@/components/DataTable";
-import DataTable1 from "@/components/DataTable1";
+import SupBidList from "@/components/SupBidList";
 export default {
-  name: "Tab",
+  name: "bidding-queue",
   components:{
-    DataTable,
-    DataTable1,
+    SupBidList,
   },
   data() {
     return {
