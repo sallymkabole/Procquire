@@ -77,7 +77,7 @@
             </v-app-bar>
 
             <v-col md="12" xs="12" sm="12">
-              <Catalogue/>
+              <SmeCatalogue/>
             </v-col>
           </v-layout>
         </v-container>
@@ -86,12 +86,12 @@
   </div>
 </template>
 <script>
-import Catalogue from "@/components/Catalogue";
+import SmeCatalogue from "@/components/SmeCatalogue";
 export default {
   layout: "default",
   name: "catalogue",
   components: {
-    Catalogue,
+    SmeCatalogue,
   },
   data() {
     return {
