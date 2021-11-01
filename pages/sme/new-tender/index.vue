@@ -10,7 +10,7 @@
         :mini-variant.sync="mini"
         class="body-txt"
       >
-        <v-list-item class="px-2  " @click="toggleMini = !toggleMini">
+        <v-list-item class="px-2   " @click="toggleMini = !toggleMini">
           
           <v-list-item-title class="red-text font-weight-bold">
            Procquire
@@ -30,8 +30,8 @@
          
           <v-list >
             <v-list-item v-for="i in plist" :key="i.title" link :to="i.href">
-              <v-list-item-icon>
-                <v-icon class="grey-text">{{ i.icon }}</v-icon>
+              <v-list-item-icon >
+               <v-btn :class="i.color"  icon> <v-icon  class="grey--text">{{ i.icon }}</v-icon></v-btn>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title class="grey-text">{{
@@ -48,7 +48,7 @@
               v-model="item.active"
               :prepend-icon="item.action"
               no-action
-              color="#635cff"
+            color="#4caf50" 
             >
               <template v-slot:activator>
                 <v-list-item-content>
@@ -67,10 +67,10 @@
 
       <v-main>
         <v-container style="height:100vh" class="px-4 py-2 fill-height body-txt" fluid>
-          <v-layout row>
+          <v-layout row st>
           
 
-            <v-col md="12" xs="12" sm="12">
+            <v-col class="mx-auto" md="10" xs="12" sm="12">
               <AddTenderTemplate/>
             </v-col>
           </v-layout>
@@ -106,11 +106,12 @@ export default {
       ],
       plist: [
         {title:"Catalogue", href:"/sme/catalogue", icon:"mdi-view-grid"},
-        { title: "Biding Queue", href: "/biding-queue", icon: "mdi-swap-vertical" },
+        { title: "Biding Queue", href: "/sme/bidding-queue", icon: "mdi-swap-vertical" },
         {
           title: "Suppliers",
           href: "/sme/supplier-list",
           icon: "mdi-check-decagram",
+          color:"green",
         },
        
         { title: "Contract", href: "/sme/contract", icon: "mdi-file-document-edit" },
@@ -123,52 +124,6 @@ export default {
 };
 </script>
 <style scoped>
-html {
-  overflow-y: scroll;
-}
-
-h1 {
-  position: static;
-  width: 361px;
-  height: 46px;
-  left: 68px;
-  top: 48px;
-  font-family: SF Pro Display;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 29px;
-
-  /* Grey 800 */
-
-  color: #3c4257;
-}
-h2 {
-  position: static;
-  height: 17px;
-  left: 0px;
-  top: 0px;
-
-  font-family: SF Pro Text;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  /* identical to box height */
-
-  display: flex;
-  align-items: center;
-
-  /* Grey 800 */
-
-  color: #3c4257;
-
-  /* Inside Auto Layout */
-}
-.purple-text {
-  color: #635cff;
-}
-
 .left-text {
   display: inline-block;
 }

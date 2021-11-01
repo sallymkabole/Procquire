@@ -11,13 +11,13 @@
         class="body-txt"
       >
         <v-list-item class="px-2" @click="toggleMini = !toggleMini">
-          <v-list-item-title class="red-text font-weight-bold">
+          <v-list-item-title class=" font-weight-bold">
             Procquire
           </v-list-item-title>
         </v-list-item>
 
         <v-list>
-          <v-list-item  link to="/sme">
+          <v-list-item link to="/sme">
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
             </v-list-item-icon>
@@ -25,7 +25,6 @@
             <v-list-item-title class="">Dashboard</v-list-item-title>
           </v-list-item>
 
-        
           <v-list>
             <v-list-item v-for="i in plist" :key="i.title" link :to="i.href">
               <v-list-item-icon>
@@ -39,33 +38,33 @@
             </v-list-item>
           </v-list>
         </v-list>
-          <v-list>
-            <v-list-group
-              v-for="item in items"
-              :key="item.title"
-              v-model="item.active"
-              :prepend-icon="item.action"
-              no-action
-              color="#635cff"
-            >
-              <template v-slot:activator>
-                <v-list-item-content>
-                  <v-list-item-title v-text="item.title"></v-list-item-title>
-                </v-list-item-content>
-              </template>
+        <v-list>
+          <v-list-group
+            v-for="item in items"
+            :key="item.title"
+            v-model="item.active"
+            :prepend-icon="item.action"
+            no-action
+            color="#635cff"
+          >
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title v-text="item.title"></v-list-item-title>
+              </v-list-item-content>
+            </template>
 
-              <v-list-item v-for="child in item.items" :key="child.title">
-                <v-list-item-content>
-                  <v-list-item-title v-text="child.title"></v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-group>
-          </v-list>
+            <v-list-item v-for="child in item.items" :key="child.title">
+              <v-list-item-content>
+                <v-list-item-title v-text="child.title"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-group>
+        </v-list>
       </v-navigation-drawer>
 
       <v-main>
         <v-layout column style="width: 75%; margin: 0 auto">
-          <v-layout style="height: 50px">
+          <v-layout class="body-txt" style="height: 50px">
             <h2 class="ml-2">Invitation to Tender</h2></v-layout
           >
           <v-layout>
@@ -76,23 +75,45 @@
                 width="100%"
                 height="250px"
               >
-                <v-layout row>
+                <v-layout row style="height: 100%">
                   <v-col md="6" xs="12" sm="12">
-                    <v-layout
-                      class="red"
-                      style="height:100%;background-color: background-size:cover;background-image: url('https://cdn.vuetifyjs.com/images/cards/docks.jpg');"
-                    >
+                    <v-layout class="d-flex flex-column" style="height: 100%">
+                      <v-img height="100px" :src="getTender.tender_photo" />
                     </v-layout>
                   </v-col>
                   <v-col md="6" xs="12" sm="12">
-                    <v-layout column style="height: 100%">
-                      <h2>Tender Name</h2>
-
-                      <h4>Tender Category</h4>
-                      <h4>Tender Ref</h4>
-                      <h4>Tender Open Date</h4>
-                      <h4>Tender Close Date</h4>
-                      <h4>Tender Quantity:</h4></v-layout
+                    <v-card
+                      outlined
+                      class="mx-auto mb-4 pa-4"
+                      width="100%"
+                      height="90%"
+                    >
+                      <v-layout
+                        column
+                        class="d-flex flex-column body-txt"
+                        style="height: 100%"
+                      >
+                        <v-card-text>
+                          <div style="display: flex; flex-direction: column">
+                            <span class="font-weight-bold green--text">{{ getTender.tender_title }}</span>
+                            <h4 class="font-weight-regular">
+                               Category: {{ getTender.tender_category }}
+                            </h4>
+                            <h4 class="font-weight-regular">
+                               Ref No. : <span class="font-weight-bold green--text">{{ getTender.tender_ref_no }}</span>
+                            </h4>
+                            <h4 class="font-weight-regular">
+                               Open Date: <span class="font-weight-bold green--text">{{ getTender.tender_open_date }}</span>
+                            </h4>
+                            <h4 class="font-weight-regular">
+                               Close Date: <span class="font-weight-bold green--text">{{ getTender.tender_close_date }}
+                             </span></h4>
+                            <h4 class="font-weight-regular">
+                               Quantity:<span class="font-weight-bold green--text"> {{ getTender.tender_quantity }}</span>
+                            </h4>
+                          </div>
+                        </v-card-text>
+                      </v-layout></v-card
                     >
                   </v-col></v-layout
                 >
@@ -106,11 +127,8 @@
                 <v-layout column
                   ><h3>Description</h3>
                   <p>
-                    2.1 This Invitation for Tenders is open to all tenderers
-                    eligible as described in the services for the stipulated
-                    duration from the date of commencement(hereinafter referred
-                    to as the term) specified in the tender includin all
-                    attachments and appendices thereto and all Read More...
+                    {{ getTender.tender_description }}
+                     {{ getTender.tender_doc }}
                   </p></v-layout
                 ></v-card
               >
@@ -120,8 +138,11 @@
                 width="100%"
                 height="100px"
               >
-                <v-layout column
-                  ><h3>Downloads</h3></v-layout></v-card></v-col
+                <v-layout column><h3>Downloads</h3>
+                <a  :href="getTender.tender_doc " download>
+   Download Tender Document
+</a></v-layout></v-card
+              ></v-col
             ></v-layout
           ></v-layout
         >
@@ -130,12 +151,16 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 import NewTenderDetailsTemplate from "@/components/NewTenderDetailsTemplate";
 export default {
   layout: "default",
   name: "new-tender",
   components: {
     NewTenderDetailsTemplate,
+  },
+  computed: {
+    ...mapGetters(["getTender"]),
   },
   data() {
     return {
@@ -155,10 +180,10 @@ export default {
         },
       ],
       plist: [
-         {title:"Catalogue", href:"/sme/catalogue", icon:"mdi-view-grid"},
+        { title: "Catalogue", href: "/sme/catalogue", icon: "mdi-view-grid" },
         {
           title: "Biding Queue",
-          href: "/biding-queue",
+          href: "/sme/bidding-queue",
           icon: "mdi-swap-vertical",
         },
         {
