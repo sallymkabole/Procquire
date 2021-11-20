@@ -1,4 +1,5 @@
-# Procquire  (https://procquire.netlify.app/)
+# Procquire  (https://procquire-web.netlify.app/sme/)
+# Procquire  (https://procquire-web.netlify.app/supplier)
 
 ## Build Setup
 
